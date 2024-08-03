@@ -1,5 +1,10 @@
+import CarForm from "./components/CarForm"
 function App() {
-  return <div>App</div>
+  return (
+    <>
+      <CarForm />
+    </>
+  )
 }
 
 export default App
