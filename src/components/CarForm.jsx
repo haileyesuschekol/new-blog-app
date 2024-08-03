@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { changeName, changeCost } from "../store"
+import { changeName, changeCost, addCar } from "../store"
 const CarForm = () => {
   const dispatch = useDispatch()
 
@@ -17,22 +17,33 @@ const CarForm = () => {
     const costInput = parseInt(event.target.value) || 0
     dispatch(changeCost(costInput))
   }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    dispatch(
+      addCar({
+        name,
+        cost,
+      })
+    )
+  }
   return (
     <>
       <div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="">Car</label>
           <div>
             <input type="text" value={name} onChange={handleNameChange} />
           </div>
+          <label htmlFor="">Cost</label>
           <div>
-            <label htmlFor="">Cost</label>
             <input
               type="number"
               value={cost || ""}
               onChange={handleCostChange}
             />
           </div>
+          <button>Add</button>
         </form>
       </div>
     </>
