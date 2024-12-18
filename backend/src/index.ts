@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
   res.send(200).json({ status: "health" })
 })
 
-app.listen(8080, async () => {
+app.listen(PORT, async () => {
   console.log(`server listen to ${PORT} in ${NODE_ENV} environment`)
   await connectDb()
 })
