@@ -2,8 +2,10 @@ import express, { urlencoded } from "express"
 import "dotenv/config"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import { StatusCodes } from "http-status-codes"
 import connectDb from "./config/db"
 import { NODE_ENV, PORT, APP_ORIGIN } from "./constants/env"
+import errorHandler from "./middleware/errorHandler"
 
 const app = express()
 
@@ -18,9 +20,15 @@ app.use(
 )
 app.use(cookieParser())
 
-app.get("/", (req, res) => {
-  res.send(200).json({ status: "health" })
+app.get("/", async (req, res, next) => {
+  try {
+    res.send(StatusCodes.OK).json({ status: "health" })
+  } catch (error) {
+    next(error)
+  }
 })
+
+app.use(errorHandler)
 
 app.listen(PORT, async () => {
   console.log(`server listen to ${PORT} in ${NODE_ENV} environment`)
